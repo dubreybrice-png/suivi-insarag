@@ -92,7 +92,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div id="viewAgents" class="view active">
     <div class="toolbar">
       <input type="text" id="searchInput" placeholder="🔍 Rechercher un agent..." oninput="filterAgents()">
-      <label><input type="checkbox" id="chkRetardOnly" onchange="filterAgents()"> 🔴 Retards uniquement</label>
+      <label><input type="checkbox" id="chkRetardOnly" onchange="renderAgents()"> 🔴 Retards uniquement</label>
       <span class="count" id="agentCount"></span>
     </div>
     <div id="loadingAgents" class="spinner-wrap"><div class="spinner"></div><p style="margin-top:12px;color:#666;">Chargement…</p></div>
@@ -269,8 +269,10 @@ function renderAgents(){
     var card=document.createElement('div');
     card.className='agent-card';card.dataset.name=agent.name.toLowerCase();card.dataset.missing=missing;
     var html='<div class="agent-header"><span>'+escHtml(agent.name)+'</span><span class="badge '+badgeCls+'">'+badgeTxt+'</span></div><div class="agent-body">';
+    var retardOnly=document.getElementById('chkRetardOnly').checked;
     items.forEach(function(it){
       var rowCls=it.cls==='red'?'missing':(it.cls==='orange'?'upcoming':'ok');
+      if(retardOnly && it.cls!=='red' && it.cls!=='orange') return;
       html+='<div class="item-row '+rowCls+'"><div class="dot '+it.cls+'"></div><span class="label">'+escHtml(it.label)+'</span><span class="value">'+escHtml(it.text)+'</span></div>';
     });
     var agComments=(DATA.comments&&DATA.comments[agent.name])||[],agId='cmt_'+agent.col;
