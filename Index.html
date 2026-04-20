@@ -196,9 +196,9 @@ function analyzeAgent(agent){
 
   // Méningo
   (function(){var d=parseDate(f['Méningo ACYW135'])||parseDate(f['Méningo ACYW135 ']),rule=rules['Méningo ACYW135'],delayY=rule?rule.delay:5;
-    if(!d){items.push({label:'Méningo',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
+    if(!d){items.push({label:'Méningo',sheetLabel:'Méningo ACYW135',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
     var due=addYears(d,delayY),ov=now>due;
-    items.push({label:'Méningo',text:fmtDate(d)+(ov?' – Dépassé ('+fmtDate(due)+')':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
+    items.push({label:'Méningo',sheetLabel:'Méningo ACYW135',text:fmtDate(d)+(ov?' – Dépassé ('+fmtDate(due)+')':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
   })();
 
   // ROR
@@ -236,8 +236,8 @@ function analyzeAgent(agent){
 
   // ECG
   (function(){var d=parseDate(f['ECG de la VMA']);
-    if(!d)items.push({label:'ECG',text:'Non renseigné',cls:'grey',due:null,agent:agent.name});
-    else items.push({label:'ECG',text:fmtDate(d),cls:'green',due:null,agent:agent.name});
+    if(!d)items.push({label:'ECG',sheetLabel:'ECG de la VMA',text:'Non renseigné',cls:'grey',due:null,agent:agent.name});
+    else items.push({label:'ECG',sheetLabel:'ECG de la VMA',text:fmtDate(d),cls:'green',due:null,agent:agent.name});
   })();
 
   // Pano dentaire – rappel 10 ans
@@ -249,7 +249,7 @@ function analyzeAgent(agent){
 
   // COVID
   (function(){var v=String(f['COVID (3 doses)']||'').toLowerCase();
-    items.push({label:'COVID',text:v==='ok'?'OK':'MANQUANT',cls:v==='ok'?'green':'red',due:null,agent:agent.name});
+    items.push({label:'COVID',sheetLabel:'COVID (3 doses)',text:v==='ok'?'OK':'MANQUANT',cls:v==='ok'?'green':'red',due:null,agent:agent.name});
   })();
 
   return items;
@@ -273,7 +273,7 @@ function renderAgents(){
     items.forEach(function(it){
       var rowCls=it.cls==='red'?'missing':(it.cls==='orange'?'upcoming':'ok');
       if(retardOnly && it.cls!=='red' && it.cls!=='orange') return;
-      html+='<div class="item-row '+rowCls+'"><div class="dot '+it.cls+'"></div><span class="label">'+escHtml(it.label)+'</span><span class="value">'+escHtml(it.text)+'</span></div>';
+      html+='<div class="item-row '+rowCls+'" style="cursor:pointer;" onclick="editField('+agent.col+',\''+escAttr(it.sheetLabel||it.label)+'\',\''+escAttr(it.label)+'\')"><div class="dot '+it.cls+'"></div><span class="label">'+escHtml(it.label)+'</span><span class="value">'+escHtml(it.text)+' ✏️</span></div>';
     });
     var agComments=(DATA.comments&&DATA.comments[agent.name])||[],agId='cmt_'+agent.col;
     html+='<div class="comments-section"><button class="comments-toggle" onclick="toggleComments(\''+agId+'\')">💬 Commentaires ('+agComments.length+') ▾</button>';
@@ -368,6 +368,22 @@ function saveRules(){
   var arr=DATA.rules.map(function(r){return{name:r.name,type:r.type,delay:r.delay,desc:r.desc};});
   inputs.forEach(function(el){var i=parseInt(el.dataset.i),f=el.dataset.f;if(f==='delay')arr[i][f]=parseFloat(el.value)||0;else arr[i][f]=el.value;});
   google.script.run.withSuccessHandler(function(){DATA.rules=arr;renderAgents();renderCalendar();alert('Règles enregistrées ✓');}).withFailureHandler(function(e){alert('Erreur: '+e.message);}).saveRules(arr);
+}
+
+/* ═══ EDIT FIELD ═══ */
+function editField(col, sheetLabel, displayLabel) {
+  var current = '';
+  // Try to find current value
+  DATA.agents.forEach(function(a){ if(a.col===col && a.fields[sheetLabel]!==undefined) current=a.fields[sheetLabel]; });
+  var msg = displayLabel + '\n\nValeur actuelle : ' + (current || '(vide)') + '\n\nEntrez la nouvelle valeur\n(date JJ/MM/AAAA, ou "ok" / "manque") :';
+  var newVal = prompt(msg, current);
+  if (newVal === null) return; // cancelled
+  newVal = newVal.trim();
+  if (!newVal && !confirm('Effacer la valeur ?')) return;
+  google.script.run
+    .withSuccessHandler(function(){ reload(); })
+    .withFailureHandler(function(e){ alert('Erreur: ' + e.message); })
+    .updateCell(col, sheetLabel, newVal);
 }
 
 function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}

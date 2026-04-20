@@ -64,11 +64,15 @@ function getData() {
   var labels = [];
   for (var r = 0; r < data.length; r++) labels.push(String(data[r][0]).trim());
 
+  // Build label→row map (1-based for Sheets)
+  var labelRows = {};
+  for (var r = 0; r < labels.length; r++) { if (labels[r]) labelRows[labels[r]] = r + 1; }
+
   var agents = [];
   for (var c = 1; c < data[0].length; c++) {
     var name = String(data[0][c] || '').trim();
     if (!name) continue;
-    var agent = { name: name, col: c, fields: {} };
+    var agent = { name: name, col: c + 1, fields: {} };
     for (var r = 1; r < data.length; r++) {
       var label = labels[r];
       var val = data[r][c];
@@ -110,7 +114,25 @@ function getData() {
     });
   }
 
-  return { agents: agents, rules: rules, comments: comments };
+  return { agents: agents, rules: rules, comments: comments, labelRows: labelRows };
+}
+
+/* ── mise à jour cellule ── */
+function updateCell(col, rowLabel, newValue) {
+  var ss = getSS();
+  var sh = ss.getSheetByName('Données');
+  if (!sh) throw new Error('Onglet Données introuvable');
+  var data = sh.getDataRange().getValues();
+  var targetRow = -1;
+  for (var r = 0; r < data.length; r++) {
+    if (String(data[r][0]).trim() === rowLabel) { targetRow = r + 1; break; }
+  }
+  if (targetRow < 0) throw new Error('Ligne "' + rowLabel + '" introuvable');
+  // Parse dd/MM/yyyy as Date
+  var m = String(newValue).match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  var val = m ? new Date(parseInt(m[3]), parseInt(m[2])-1, parseInt(m[1])) : newValue;
+  sh.getRange(targetRow, col).setValue(val);
+  return true;
 }
 
 /* ── sauvegarde règles ── */
