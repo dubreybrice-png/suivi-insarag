@@ -93,6 +93,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div class="toolbar">
       <input type="text" id="searchInput" placeholder="🔍 Rechercher un agent..." oninput="filterAgents()">
       <label><input type="checkbox" id="chkRetardOnly" onchange="renderAgents()"> 🔴 Retards uniquement</label>
+      <span class="count" id="retardCount" style="color:var(--red);font-weight:800;"></span>
       <span class="count" id="agentCount"></span>
     </div>
     <div id="loadingAgents" class="spinner-wrap"><div class="spinner"></div><p style="margin-top:12px;color:#666;">Chargement…</p></div>
@@ -353,7 +354,13 @@ function filterAgents(){
   });
   updateCount();
 }
-function updateCount(){var vis=allCards.filter(function(c){return c.style.display!=='none';}).length;document.getElementById('agentCount').textContent=vis+'/'+allCards.length+' agents';}
+function updateCount(){
+  var vis=allCards.filter(function(c){return c.style.display!=='none';}).length;
+  document.getElementById('agentCount').textContent=vis+'/'+allCards.length+' agents';
+  var totalRetard=0;
+  allAgentData.forEach(function(ad){ad.items.forEach(function(it){if(it.cls==='red')totalRetard++;});});
+  document.getElementById('retardCount').textContent='🔴 '+totalRetard+' examen'+(totalRetard>1?'s':'')+' en retard';
+}
 
 /* ═══ RULES (editable) ═══ */
 function renderRules(){
