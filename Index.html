@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-:root{--bg:#f0f2f5;--card:#fff;--text:#1a1a2e;--primary:#1565c0;--red:#e53935;--green:#43a047;--orange:#f57c00;--grey:#90a4ae;}
+:root{--bg:#f0f2f5;--card:#fff;--text:#1a1a2e;--primary:#1565c0;--red:#d50000;--green:#0277bd;--orange:#ff6f00;--grey:#90a4ae;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 .topbar{background:linear-gradient(135deg,#1565c0 0%,#0d47a1 100%);color:#fff;padding:16px 24px;box-shadow:0 2px 12px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
@@ -27,7 +27,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .agent-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.12);}
 .agent-header{background:linear-gradient(135deg,#1976d2,#1565c0);color:#fff;padding:12px 16px;font-weight:700;font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;}
 .agent-header .badge{background:rgba(255,255,255,.25);padding:3px 10px;border-radius:20px;font-size:.78rem;font-weight:600;}
-.badge.ok{background:rgba(76,175,80,.9);} .badge.warn{background:rgba(255,152,0,.9);} .badge.crit{background:rgba(229,57,53,.9);}
+.badge.ok{background:rgba(2,119,189,.9);} .badge.warn{background:rgba(255,111,0,.9);} .badge.crit{background:rgba(213,0,0,.9);}
 .agent-body{padding:12px 16px;}
 .item-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.88rem;}
 .item-row:last-child{border-bottom:none;}
@@ -35,8 +35,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .dot.green{background:var(--green);} .dot.red{background:var(--red);} .dot.orange{background:var(--orange);} .dot.grey{background:var(--grey);}
 .item-row .label{font-weight:600;min-width:130px;}
 .item-row .value{flex:1;font-size:.84rem;}
-.item-row.missing .value{color:var(--red);font-weight:600;}
-.item-row.overdue .value{color:var(--red);font-weight:700;}
+.item-row.missing .value{color:var(--red);font-weight:700;}
+.item-row.overdue .value{color:var(--red);font-weight:800;}
 .item-row.ok .value{color:var(--green);}
 .item-row.upcoming .value{color:var(--orange);font-weight:600;}
 
