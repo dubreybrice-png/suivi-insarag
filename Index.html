@@ -269,7 +269,9 @@ function renderAgents(){
     var badgeTxt=missing>0?missing+' manquant'+(missing>1?'s':''):(upcoming>0?upcoming+' à prévoir':'✓ Complet');
     var card=document.createElement('div');
     card.className='agent-card';card.dataset.name=agent.name.toLowerCase();card.dataset.missing=missing;
-    var html='<div class="agent-header"><span>'+escHtml(agent.name)+'</span><span class="badge '+badgeCls+'">'+badgeTxt+'</span></div><div class="agent-body">';
+    var birthDate=parseDate(agent.fields['Date naissance']),agentAge=age(birthDate);
+    var nameDisplay=escHtml(agent.name)+(agentAge!==null?' <span style="font-weight:400;font-size:.85em;opacity:.8;">('+agentAge+' ans)</span>':'');
+    var html='<div class="agent-header"><span>'+nameDisplay+'</span><span class="badge '+badgeCls+'">'+badgeTxt+'</span></div><div class="agent-body">';
     var retardOnly=document.getElementById('chkRetardOnly').checked;
     items.forEach(function(it){
       var rowCls=it.cls==='red'?'missing':(it.cls==='orange'?'upcoming':'ok');
