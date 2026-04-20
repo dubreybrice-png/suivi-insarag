@@ -109,7 +109,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <h2 style="margin-bottom:16px;">📋 Règles médicales configurables</h2>
     <p style="margin-bottom:16px;color:#666;font-size:.9rem;">Modifiez les valeurs puis cliquez <b>Enregistrer</b>.</p>
     <table class="rules-table">
-      <thead><tr><th>Vaccin / Évènement</th><th>Type</th><th>Délai (années)</th><th>Description</th></tr></thead>
+      <thead><tr><th>Vaccin / Évènement</th><th>Type</th><th>Délai (mois)</th><th>Description</th></tr></thead>
       <tbody id="rulesBody"></tbody>
     </table>
     <button class="rules-save-btn" onclick="saveRules()">💾 Enregistrer les règles</button>
@@ -167,9 +167,9 @@ function analyzeAgent(agent){
   })();
 
   // HEP A 2
-  (function(){var d1=parseDate(f['HEP A 1']),d2=parseDate(f['HEP A 2']),rule=rules['HEP A 2'],delayY=rule?rule.delay:1;
+  (function(){var d1=parseDate(f['HEP A 1']),d2=parseDate(f['HEP A 2']),rule=rules['HEP A 2'],delayM=rule?rule.delay:12;
     if(!d1)return;
-    if(!d2){var due=addYears(d1,delayY),ov=now>due;
+    if(!d2){var due=addMonths(d1,delayM),ov=now>due;
       items.push({label:'HEP A 2',text:'Rappel prévu : '+fmtDate(due)+(ov?' – EN RETARD':''),cls:ov?'red':'orange',due:due,agent:agent.name});
     }else items.push({label:'HEP A 2',text:fmtDate(d2),cls:'green',due:null,agent:agent.name});
   })();
@@ -181,24 +181,24 @@ function analyzeAgent(agent){
   })();
 
   // Fièvre jaune 2
-  (function(){var d1=parseDate(f['Fièvre jaune 1']),d2=parseDate(f['Fièvre jaune 2']),rule=rules['Fièvre jaune 2'],delayY=rule?rule.delay:10;
+  (function(){var d1=parseDate(f['Fièvre jaune 1']),d2=parseDate(f['Fièvre jaune 2']),rule=rules['Fièvre jaune 2'],delayM=rule?rule.delay:120;
     if(!d1)return;
-    if(!d2){var due=addYears(d1,delayY),ov=now>due;
+    if(!d2){var due=addMonths(d1,delayM),ov=now>due;
       items.push({label:'Fièvre jaune 2',text:'Rappel : '+fmtDate(due)+(ov?' – EN RETARD':''),cls:ov?'red':'orange',due:due,agent:agent.name});
     }else items.push({label:'Fièvre jaune 2',text:fmtDate(d2),cls:'green',due:null,agent:agent.name});
   })();
 
   // Typhoïde
-  (function(){var d=parseDate(f['Typhoïde']),rule=rules['Typhoïde'],delayY=rule?rule.delay:3;
+  (function(){var d=parseDate(f['Typhoïde']),rule=rules['Typhoïde'],delayM=rule?rule.delay:36;
     if(!d){items.push({label:'Typhoïde',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
-    var due=addYears(d,delayY),ov=now>due;
+    var due=addMonths(d,delayM),ov=now>due;
     items.push({label:'Typhoïde',text:fmtDate(d)+(ov?' – Dépassé ('+fmtDate(due)+')':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
   })();
 
   // Méningo
-  (function(){var d=parseDate(f['Méningo ACYW135'])||parseDate(f['Méningo ACYW135 ']),rule=rules['Méningo ACYW135'],delayY=rule?rule.delay:5;
+  (function(){var d=parseDate(f['Méningo ACYW135'])||parseDate(f['Méningo ACYW135 ']),rule=rules['Méningo ACYW135'],delayM=rule?rule.delay:60;
     if(!d){items.push({label:'Méningo',sheetLabel:'Méningo ACYW135',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
-    var due=addYears(d,delayY),ov=now>due;
+    var due=addMonths(d,delayM),ov=now>due;
     items.push({label:'Méningo',sheetLabel:'Méningo ACYW135',text:fmtDate(d)+(ov?' – Dépassé ('+fmtDate(due)+')':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
   })();
 
@@ -208,9 +208,9 @@ function analyzeAgent(agent){
   })();
 
   // Grippe – rappel annuel (date ou ok)
-  (function(){var v=String(f['Grippe']||'').toLowerCase(),d=parseDate(f['Grippe']),rule=rules['Grippe'],delayY=rule?rule.delay:1;
+  (function(){var v=String(f['Grippe']||'').toLowerCase(),d=parseDate(f['Grippe']),rule=rules['Grippe'],delayM=rule?rule.delay:12;
     if(v==='ok'){items.push({label:'Grippe',text:'OK',cls:'green',due:null,agent:agent.name});return;}
-    if(d){var due=addYears(d,delayY),ov=now>due;
+    if(d){var due=addMonths(d,delayM),ov=now>due;
       items.push({label:'Grippe',text:fmtDate(d)+(ov?' – Rappel dépassé':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
     }else items.push({label:'Grippe',text:'MANQUANT',cls:'red',due:null,agent:agent.name});
   })();
@@ -227,9 +227,9 @@ function analyzeAgent(agent){
   })();
 
   // VMA – rouge dès 11 mois
-  (function(){var d=parseDate(f['VMA']),rule=rules['VMA'],delayY=rule?rule.delay:1;
+  (function(){var d=parseDate(f['VMA']),rule=rules['VMA'],delayM=rule?rule.delay:12;
     if(!d){items.push({label:'VMA',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
-    var due=addYears(d,delayY),warn=addMonths(d,11);
+    var due=addMonths(d,delayM),warn=addMonths(d,11);
     if(now>due) items.push({label:'VMA',text:fmtDate(d)+' – EXPIRÉE',cls:'red',due:due,agent:agent.name});
     else if(now>warn) items.push({label:'VMA',text:fmtDate(d)+' – Expire bientôt ! ('+fmtDate(due)+')',cls:'red',due:due,agent:agent.name});
     else items.push({label:'VMA',text:fmtDate(d)+' – Valide jusqu\'au '+fmtDate(due),cls:'green',due:due,agent:agent.name});
@@ -242,9 +242,9 @@ function analyzeAgent(agent){
   })();
 
   // Pano dentaire – rappel 10 ans
-  (function(){var d=parseDate(f['Pano dentaire']),rule=rules['Pano dentaire'],delayY=rule?rule.delay:10;
+  (function(){var d=parseDate(f['Pano dentaire']),rule=rules['Pano dentaire'],delayM=rule?rule.delay:120;
     if(!d){items.push({label:'Pano dentaire',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
-    var due=addYears(d,delayY),ov=now>due;
+    var due=addMonths(d,delayM),ov=now>due;
     items.push({label:'Pano dentaire',text:fmtDate(d)+(ov?' – Dépassé ('+fmtDate(due)+')':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
   })();
 

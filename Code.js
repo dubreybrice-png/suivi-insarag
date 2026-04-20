@@ -18,7 +18,7 @@ function ensureRulesSheet() {
   var sh = ss.getSheetByName('règle médicale');
   if (sh) return sh;
   sh = ss.insertSheet('règle médicale');
-  var headers = ['Vaccin / Évènement', 'Type', 'Délai rappel (années)', 'Description'];
+  var headers = ['Vaccin / Évènement', 'Type', 'Délai rappel (mois)', 'Description'];
   sh.getRange(1, 1, 1, 4).setValues([headers]).setFontWeight('bold');
   var data = [
     ['DTP 25',        'age',      0,  'Obligatoire à 25 ans'],
@@ -26,18 +26,18 @@ function ensureRulesSheet() {
     ['DTP 65',        'age',      0,  'Obligatoire à 65 ans'],
     ['HEP B',         'presence', 0,  'Doit être OK'],
     ['HEP A 1',       'date',     0,  'Première dose hépatite A'],
-    ['HEP A 2',       'rappel',   1,  'Rappel 6-12 mois après dose 1 – on prévoit à 1 an'],
+    ['HEP A 2',       'rappel',  12,  'Rappel 6-12 mois après dose 1'],
     ['Fièvre jaune 1','date',     0,  'Première dose fièvre jaune'],
-    ['Fièvre jaune 2','rappel',  10,  'Rappel 10 ans après dose 1'],
-    ['Typhoïde',      'rappel',   3,  'Rappel tous les 3 ans'],
-    ['Méningo ACYW135','rappel',  5,  'Rappel tous les 5 ans'],
+    ['Fièvre jaune 2','rappel', 120,  'Rappel 10 ans après dose 1'],
+    ['Typhoïde',      'rappel',  36,  'Rappel tous les 3 ans'],
+    ['Méningo ACYW135','rappel', 60,  'Rappel tous les 5 ans'],
     ['ROR',           'presence', 0,  'Doit être OK'],
-    ['Grippe',        'rappel',   1,  'Rappel tous les ans'],
+    ['Grippe',        'rappel',  12,  'Rappel tous les ans'],
     ['BCG',           'presence', 0,  'Doit être OK ou manque'],
     ['Groupe sanguin','presence', 0,  'Doit être renseigné'],
-    ['VMA',           'rappel',   1,  'Valide 1 an – alerte à 11 mois'],
+    ['VMA',           'rappel',  12,  'Valide 1 an – alerte à 11 mois'],
     ['ECG de la VMA', 'date',     0,  'Date ECG'],
-    ['Pano dentaire', 'rappel',  10,  'Rappel tous les 10 ans'],
+    ['Pano dentaire', 'rappel', 120,  'Rappel tous les 10 ans'],
     ['COVID (3 doses)','presence',0,  'Doit être OK ou manque']
   ];
   sh.getRange(2, 1, data.length, 4).setValues(data);
