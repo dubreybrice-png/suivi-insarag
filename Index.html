@@ -9,67 +9,69 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 .topbar{background:linear-gradient(135deg,#1565c0 0%,#0d47a1 100%);color:#fff;padding:16px 24px;box-shadow:0 2px 12px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .topbar h1{font-size:1.3rem;font-weight:800;}
-.topbar .tabs{display:flex;gap:8px;}
+.topbar .tabs{display:flex;gap:8px;flex-wrap:wrap;}
 .tab-btn{background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);color:#fff;padding:6px 16px;border-radius:8px;cursor:pointer;font-weight:700;font-size:.85em;transition:all .2s;}
 .tab-btn.active{background:#fff;color:#1565c0;border-color:#fff;}
 .container{max-width:1400px;margin:0 auto;padding:20px;}
 .view{display:none;} .view.active{display:block;}
 
-/* Search */
-.search-bar{margin-bottom:20px;display:flex;gap:10px;align-items:center;}
-.search-bar input{flex:1;padding:10px 16px;border:2px solid #ddd;border-radius:10px;font-size:1rem;outline:none;transition:border .2s;}
-.search-bar input:focus{border-color:var(--primary);}
-.search-bar .count{font-weight:700;color:var(--grey);font-size:.9rem;white-space:nowrap;}
+.toolbar{margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.toolbar input[type=text]{flex:1;min-width:200px;padding:10px 16px;border:2px solid #ddd;border-radius:10px;font-size:1rem;outline:none;transition:border .2s;}
+.toolbar input[type=text]:focus{border-color:var(--primary);}
+.toolbar .count{font-weight:700;color:var(--grey);font-size:.9rem;white-space:nowrap;}
+.toolbar label{display:flex;align-items:center;gap:6px;font-size:.9rem;font-weight:600;cursor:pointer;white-space:nowrap;}
+.toolbar input[type=checkbox]{width:18px;height:18px;accent-color:var(--red);}
 
-/* Agent cards */
-.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;}
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;}
 .agent-card{background:var(--card);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden;transition:transform .15s;}
 .agent-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.12);}
 .agent-header{background:linear-gradient(135deg,#1976d2,#1565c0);color:#fff;padding:12px 16px;font-weight:700;font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;}
 .agent-header .badge{background:rgba(255,255,255,.25);padding:3px 10px;border-radius:20px;font-size:.78rem;font-weight:600;}
-.agent-header .badge.ok{background:rgba(76,175,80,.9);}
-.agent-header .badge.warn{background:rgba(255,152,0,.9);}
-.agent-header .badge.crit{background:rgba(229,57,53,.9);}
+.badge.ok{background:rgba(76,175,80,.9);} .badge.warn{background:rgba(255,152,0,.9);} .badge.crit{background:rgba(229,57,53,.9);}
 .agent-body{padding:12px 16px;}
 .item-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #f0f0f0;font-size:.88rem;}
 .item-row:last-child{border-bottom:none;}
-.item-row .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.dot.green{background:var(--green);}
-.dot.red{background:var(--red);}
-.dot.orange{background:var(--orange);}
-.dot.grey{background:var(--grey);}
-.item-row .label{font-weight:600;min-width:120px;}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.dot.green{background:var(--green);} .dot.red{background:var(--red);} .dot.orange{background:var(--orange);} .dot.grey{background:var(--grey);}
+.item-row .label{font-weight:600;min-width:130px;}
 .item-row .value{flex:1;font-size:.84rem;}
 .item-row.missing .value{color:var(--red);font-weight:600;}
 .item-row.overdue .value{color:var(--red);font-weight:700;}
 .item-row.ok .value{color:var(--green);}
 .item-row.upcoming .value{color:var(--orange);font-weight:600;}
 
-/* Comments */
 .comments-section{border-top:2px solid #e8e8e8;margin-top:10px;padding-top:8px;}
 .comments-toggle{background:none;border:none;color:var(--primary);cursor:pointer;font-weight:700;font-size:.85rem;padding:4px 0;display:flex;align-items:center;gap:4px;}
 .comments-list{margin-top:6px;}
 .comment-item{display:flex;align-items:flex-start;gap:6px;padding:4px 0;font-size:.82rem;border-bottom:1px solid #f5f5f5;}
 .comment-item.validated{text-decoration:line-through;opacity:.55;}
-.comment-item .c-text{flex:1;}
-.comment-item .c-date{color:var(--grey);font-size:.75rem;white-space:nowrap;}
+.comment-item .c-text{flex:1;} .comment-item .c-date{color:var(--grey);font-size:.75rem;white-space:nowrap;}
 .comment-item .c-actions{display:flex;gap:4px;}
 .c-btn{background:none;border:1px solid #ccc;border-radius:4px;cursor:pointer;font-size:.75rem;padding:2px 6px;transition:all .15s;}
-.c-btn:hover{background:#e3f2fd;}
-.c-btn.validate{color:var(--green);border-color:var(--green);}
-.c-btn.delete{color:var(--red);border-color:var(--red);}
+.c-btn:hover{background:#e3f2fd;} .c-btn.validate{color:var(--green);border-color:var(--green);} .c-btn.delete{color:var(--red);border-color:var(--red);}
 .add-comment{display:flex;gap:6px;margin-top:6px;}
 .add-comment input{flex:1;padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.82rem;outline:none;}
 .add-comment button{background:var(--primary);color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-weight:600;font-size:.82rem;}
 
-/* Rules tab */
 .rules-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.08);}
 .rules-table th{background:linear-gradient(135deg,#1976d2,#1565c0);color:#fff;padding:12px;text-align:left;font-size:.9rem;}
-.rules-table td{padding:10px 12px;border-bottom:1px solid #eee;font-size:.88rem;}
+.rules-table td{padding:8px 10px;border-bottom:1px solid #eee;font-size:.88rem;}
 .rules-table tr:hover{background:#e3f2fd;}
-.rules-table td:nth-child(3){text-align:center;font-weight:700;}
+.rules-table input,.rules-table select{padding:5px 8px;border:1px solid #ccc;border-radius:5px;font-size:.85rem;width:100%;}
+.rules-table input[type=number]{width:70px;text-align:center;}
+.rules-save-btn{margin-top:16px;background:var(--primary);color:#fff;border:none;padding:10px 28px;border-radius:8px;cursor:pointer;font-weight:700;font-size:1rem;}
+.rules-save-btn:hover{background:#0d47a1;}
 
-/* Spinner */
+.cal-list{display:flex;flex-direction:column;gap:8px;}
+.cal-item{display:flex;align-items:center;gap:12px;background:#fff;padding:12px 16px;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.06);font-size:.9rem;}
+.cal-item .cal-date{font-weight:800;min-width:100px;font-size:.95rem;}
+.cal-item .cal-agent{font-weight:700;min-width:160px;color:var(--primary);}
+.cal-item .cal-what{flex:1;}
+.cal-item.overdue{border-left:4px solid var(--red);} .cal-item.overdue .cal-date{color:var(--red);}
+.cal-item.upcoming{border-left:4px solid var(--orange);} .cal-item.upcoming .cal-date{color:var(--orange);}
+.cal-item.missing{border-left:4px solid var(--red);background:#fff5f5;}
+.cal-section-title{font-weight:800;font-size:1.1rem;margin:16px 0 8px;padding:8px 12px;background:linear-gradient(135deg,#1976d2,#1565c0);color:#fff;border-radius:8px;}
+
 .spinner-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 0;}
 .spinner{border:6px solid #e0e0e0;border-top:6px solid var(--primary);border-radius:50%;width:48px;height:48px;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -81,382 +83,293 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <h1>🏥 Suivi INSARAG</h1>
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('agents')">👥 Agents</button>
+    <button class="tab-btn" onclick="switchTab('calendar')">📅 Calendrier</button>
     <button class="tab-btn" onclick="switchTab('rules')">📋 Règle médicale</button>
   </div>
 </div>
 
 <div class="container">
   <div id="viewAgents" class="view active">
-    <div class="search-bar">
+    <div class="toolbar">
       <input type="text" id="searchInput" placeholder="🔍 Rechercher un agent..." oninput="filterAgents()">
+      <label><input type="checkbox" id="chkRetardOnly" onchange="filterAgents()"> 🔴 Retards uniquement</label>
       <span class="count" id="agentCount"></span>
     </div>
-    <div id="loadingAgents" class="spinner-wrap"><div class="spinner"></div><p style="margin-top:12px;color:#666;">Chargement des données…</p></div>
+    <div id="loadingAgents" class="spinner-wrap"><div class="spinner"></div><p style="margin-top:12px;color:#666;">Chargement…</p></div>
     <div class="agent-grid" id="agentGrid" style="display:none;"></div>
+  </div>
+
+  <div id="viewCalendar" class="view">
+    <h2 style="margin-bottom:16px;">📅 Calendrier – actions à mener</h2>
+    <div id="calendarContent"></div>
   </div>
 
   <div id="viewRules" class="view">
     <h2 style="margin-bottom:16px;">📋 Règles médicales configurables</h2>
-    <p style="margin-bottom:16px;color:#666;font-size:.9rem;">Ces règles sont modifiables directement dans l'onglet <b>« règle médicale »</b> du spreadsheet. Les changements sont pris en compte au rechargement.</p>
-    <table class="rules-table" id="rulesTable">
-      <thead><tr><th>Vaccin / Évènement</th><th>Type</th><th>Délai rappel (ans)</th><th>Description</th></tr></thead>
+    <p style="margin-bottom:16px;color:#666;font-size:.9rem;">Modifiez les valeurs puis cliquez <b>Enregistrer</b>.</p>
+    <table class="rules-table">
+      <thead><tr><th>Vaccin / Évènement</th><th>Type</th><th>Délai (années)</th><th>Description</th></tr></thead>
       <tbody id="rulesBody"></tbody>
     </table>
+    <button class="rules-save-btn" onclick="saveRules()">💾 Enregistrer les règles</button>
   </div>
 </div>
 
 <script>
-/* ═══ GLOBALS ═══ */
-var DATA = null;
-var allCards = [];
+var DATA=null, allCards=[], allAgentData=[];
 
-/* ═══ TABS ═══ */
-function switchTab(name) {
-  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
-  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
-  if (name === 'agents') {
-    document.getElementById('viewAgents').classList.add('active');
-    document.querySelectorAll('.tab-btn')[0].classList.add('active');
-  } else {
-    document.getElementById('viewRules').classList.add('active');
-    document.querySelectorAll('.tab-btn')[1].classList.add('active');
-  }
+function switchTab(name){
+  document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  var idx={agents:0,calendar:1,rules:2}[name]||0;
+  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  document.getElementById({agents:'viewAgents',calendar:'viewCalendar',rules:'viewRules'}[name]).classList.add('active');
 }
 
-/* ═══ INIT ═══ */
 google.script.run.withSuccessHandler(onData).withFailureHandler(onErr).getData();
+function onErr(e){document.getElementById('loadingAgents').innerHTML='<p style="color:red;">Erreur : '+e.message+'</p>';}
+function onData(d){DATA=d;renderRules();renderAgents();renderCalendar();}
 
-function onErr(e) {
-  document.getElementById('loadingAgents').innerHTML = '<p style="color:red;">Erreur : '+e.message+'</p>';
-}
+/* date helpers */
+function parseDate(s){if(!s)return null;s=String(s).trim();var m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);if(m)return new Date(parseInt(m[3]),parseInt(m[2])-1,parseInt(m[1]));var d=new Date(s);return isNaN(d.getTime())?null:d;}
+function fmtDate(d){if(!d)return'';return('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear();}
+function addYears(d,y){var r=new Date(d);r.setFullYear(r.getFullYear()+y);return r;}
+function addMonths(d,m){var r=new Date(d);r.setMonth(r.getMonth()+m);return r;}
+function age(bd){if(!bd)return null;var t=new Date(),a=t.getFullYear()-bd.getFullYear(),m=t.getMonth()-bd.getMonth();if(m<0||(m===0&&t.getDate()<bd.getDate()))a--;return a;}
+function getRulesMap(){var m={};if(DATA&&DATA.rules)DATA.rules.forEach(function(r){m[r.name]=r;});return m;}
 
-function onData(d) {
-  DATA = d;
-  renderRules();
-  renderAgents();
-}
+/* ═══ ANALYSE ═══ */
+function analyzeAgent(agent){
+  var f=agent.fields,rules=getRulesMap(),items=[],now=new Date();
+  var birthDate=parseDate(f['Date naissance']),agentAge=age(birthDate);
 
-/* ═══ DATE HELPERS ═══ */
-function parseDate(s) {
-  if (!s) return null;
-  s = String(s).trim();
-  // dd/MM/yyyy
-  var m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-  if (m) return new Date(parseInt(m[3]), parseInt(m[2])-1, parseInt(m[1]));
-  var d = new Date(s);
-  return isNaN(d.getTime()) ? null : d;
-}
-
-function fmtDate(d) {
-  if (!d) return '';
-  var dd = ('0'+d.getDate()).slice(-2);
-  var mm = ('0'+(d.getMonth()+1)).slice(-2);
-  return dd+'/'+mm+'/'+d.getFullYear();
-}
-
-function addYears(d, y) {
-  var r = new Date(d);
-  r.setFullYear(r.getFullYear() + y);
-  return r;
-}
-
-function addMonths(d, m) {
-  var r = new Date(d);
-  r.setMonth(r.getMonth() + m);
-  return r;
-}
-
-function age(birthDate) {
-  if (!birthDate) return null;
-  var today = new Date();
-  var a = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) a--;
-  return a;
-}
-
-/* ═══ BUILD RULES MAP ═══ */
-function getRulesMap() {
-  var map = {};
-  if (!DATA || !DATA.rules) return map;
-  DATA.rules.forEach(function(r) { map[r.name] = r; });
-  return map;
-}
-
-/* ═══ ANALYSE AGENT ═══ */
-function analyzeAgent(agent) {
-  var f = agent.fields;
-  var rules = getRulesMap();
-  var items = [];
-  var now = new Date();
-  var birthDate = parseDate(f['Date naissance']);
-  var agentAge = age(birthDate);
-
-  // DTP 25 / 45 / 65
-  [25, 45, 65].forEach(function(a) {
-    var key = 'DTP ' + a;
-    var rule = rules[key];
-    if (!rule) return;
-    if (agentAge === null || agentAge < a) {
-      if (a <= 45 || agentAge === null) return; // skip if not old enough
-      return;
-    }
-    var val = f[key];
-    var d = parseDate(val);
-    if (!d && (!val || val === '' || val === '0' || val === 'FALSE')) {
-      items.push({ label: key, status: 'missing', text: 'MANQUANT – obligatoire à ' + a + ' ans', cls: 'red' });
-    } else if (d) {
-      items.push({ label: key, status: 'ok', text: fmtDate(d), cls: 'green' });
-    } else if (String(val).toLowerCase() === 'ok') {
-      items.push({ label: key, status: 'ok', text: 'OK', cls: 'green' });
-    } else {
-      items.push({ label: key, status: 'ok', text: String(val), cls: 'green' });
-    }
+  [25,45,65].forEach(function(a){
+    var key='DTP '+a,rule=rules[key]; if(!rule)return;
+    if(agentAge===null||agentAge<a)return;
+    var val=f[key],d=parseDate(val);
+    if(!d&&(!val||val===''||val==='0'||val==='FALSE'))
+      items.push({label:key,text:'MANQUANT – obligatoire à '+a+' ans',cls:'red',due:null,agent:agent.name});
+    else if(d) items.push({label:key,text:fmtDate(d),cls:'green',due:null,agent:agent.name});
+    else if(String(val).toLowerCase()==='ok') items.push({label:key,text:'OK',cls:'green',due:null,agent:agent.name});
+    else items.push({label:key,text:String(val),cls:'green',due:null,agent:agent.name});
   });
 
-  // HEP B – presence
-  (function() {
-    var val = String(f['HEP B'] || '').toLowerCase();
-    if (val === 'ok') {
-      items.push({ label: 'HEP B', status: 'ok', text: 'OK', cls: 'green' });
-    } else {
-      items.push({ label: 'HEP B', status: 'missing', text: 'MANQUANT', cls: 'red' });
-    }
+  // HEP B
+  (function(){var v=String(f['HEP B']||'').toLowerCase();
+    items.push({label:'HEP B',text:v==='ok'?'OK':'MANQUANT',cls:v==='ok'?'green':'red',due:null,agent:agent.name});
   })();
 
   // HEP A 1
-  (function() {
-    var d1 = parseDate(f['HEP A 1']);
-    if (!d1) {
-      items.push({ label: 'HEP A 1', status: 'missing', text: 'MANQUANT – première dose requise', cls: 'red' });
-    } else {
-      items.push({ label: 'HEP A 1', status: 'ok', text: fmtDate(d1), cls: 'green' });
-    }
+  (function(){var d1=parseDate(f['HEP A 1']);
+    if(!d1)items.push({label:'HEP A 1',text:'MANQUANT',cls:'red',due:null,agent:agent.name});
+    else items.push({label:'HEP A 1',text:fmtDate(d1),cls:'green',due:null,agent:agent.name});
   })();
 
-  // HEP A 2 – rappel 6-12 mois après dose 1
-  (function() {
-    var d1 = parseDate(f['HEP A 1']);
-    var d2 = parseDate(f['HEP A 2']);
-    var rule = rules['HEP A 2'];
-    var delayYears = rule ? rule.delay : 1;
-    if (!d1) {
-      // pas de dose 1, on ne parle pas du rappel
-    } else if (!d2) {
-      var due = addMonths(d1, delayYears * 12);
-      var overdue = now > due;
-      items.push({ label: 'HEP A 2', status: overdue ? 'overdue' : 'upcoming', text: 'Rappel prévu : ' + fmtDate(due) + (overdue ? ' – EN RETARD' : ''), cls: overdue ? 'red' : 'orange' });
-    } else {
-      items.push({ label: 'HEP A 2', status: 'ok', text: fmtDate(d2), cls: 'green' });
-    }
+  // HEP A 2
+  (function(){var d1=parseDate(f['HEP A 1']),d2=parseDate(f['HEP A 2']),rule=rules['HEP A 2'],delayY=rule?rule.delay:1;
+    if(!d1)return;
+    if(!d2){var due=addYears(d1,delayY),ov=now>due;
+      items.push({label:'HEP A 2',text:'Rappel prévu : '+fmtDate(due)+(ov?' – EN RETARD':''),cls:ov?'red':'orange',due:due,agent:agent.name});
+    }else items.push({label:'HEP A 2',text:fmtDate(d2),cls:'green',due:null,agent:agent.name});
   })();
 
   // Fièvre jaune 1
-  (function() {
-    var d1 = parseDate(f['Fièvre jaune 1']);
-    if (!d1) {
-      items.push({ label: 'Fièvre jaune 1', status: 'missing', text: 'MANQUANT – première dose requise', cls: 'red' });
-    } else {
-      items.push({ label: 'Fièvre jaune 1', status: 'ok', text: fmtDate(d1), cls: 'green' });
-    }
+  (function(){var d1=parseDate(f['Fièvre jaune 1']);
+    if(!d1)items.push({label:'Fièvre jaune 1',text:'MANQUANT',cls:'red',due:null,agent:agent.name});
+    else items.push({label:'Fièvre jaune 1',text:fmtDate(d1),cls:'green',due:null,agent:agent.name});
   })();
 
-  // Fièvre jaune 2 – rappel configurable (default 10 ans après dose 1)
-  (function() {
-    var d1 = parseDate(f['Fièvre jaune 1']);
-    var d2 = parseDate(f['Fièvre jaune 2']);
-    var rule = rules['Fièvre jaune 2'];
-    var delayY = rule ? rule.delay : 10;
-    if (!d1) return;
-    if (!d2) {
-      var due = addYears(d1, delayY);
-      var overdue = now > due;
-      items.push({ label: 'Fièvre jaune 2', status: overdue ? 'overdue' : 'upcoming', text: 'Rappel prévu : ' + fmtDate(due) + (overdue ? ' – EN RETARD' : ''), cls: overdue ? 'red' : 'orange' });
-    } else {
-      items.push({ label: 'Fièvre jaune 2', status: 'ok', text: fmtDate(d2), cls: 'green' });
-    }
+  // Fièvre jaune 2
+  (function(){var d1=parseDate(f['Fièvre jaune 1']),d2=parseDate(f['Fièvre jaune 2']),rule=rules['Fièvre jaune 2'],delayY=rule?rule.delay:10;
+    if(!d1)return;
+    if(!d2){var due=addYears(d1,delayY),ov=now>due;
+      items.push({label:'Fièvre jaune 2',text:'Rappel : '+fmtDate(due)+(ov?' – EN RETARD':''),cls:ov?'red':'orange',due:due,agent:agent.name});
+    }else items.push({label:'Fièvre jaune 2',text:fmtDate(d2),cls:'green',due:null,agent:agent.name});
   })();
 
-  // Typhoïde – rappel configurable (default 3 ans)
-  (function() {
-    var d = parseDate(f['Typhoïde']);
-    var rule = rules['Typhoïde'];
-    var delayY = rule ? rule.delay : 3;
-    if (!d) {
-      items.push({ label: 'Typhoïde', status: 'missing', text: 'MANQUANT', cls: 'red' });
-    } else {
-      var due = addYears(d, delayY);
-      var overdue = now > due;
-      if (overdue) {
-        items.push({ label: 'Typhoïde', status: 'overdue', text: fmtDate(d) + ' – Rappel dépassé (dû ' + fmtDate(due) + ')', cls: 'red' });
-      } else {
-        items.push({ label: 'Typhoïde', status: 'ok', text: fmtDate(d) + ' – Prochain rappel : ' + fmtDate(due), cls: 'green' });
-      }
-    }
+  // Typhoïde
+  (function(){var d=parseDate(f['Typhoïde']),rule=rules['Typhoïde'],delayY=rule?rule.delay:3;
+    if(!d){items.push({label:'Typhoïde',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
+    var due=addYears(d,delayY),ov=now>due;
+    items.push({label:'Typhoïde',text:fmtDate(d)+(ov?' – Dépassé ('+fmtDate(due)+')':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
   })();
 
-  // Méningo – rappel configurable (default 5 ans)
-  (function() {
-    var d = parseDate(f['Méningo ACYW135']);
-    // try alternate key without space
-    if (!d) d = parseDate(f['Méningo ACYW135 ']);
-    var rule = rules['Méningo ACYW135'];
-    var delayY = rule ? rule.delay : 5;
-    if (!d) {
-      items.push({ label: 'Méningo', status: 'missing', text: 'MANQUANT', cls: 'red' });
-    } else {
-      var due = addYears(d, delayY);
-      var overdue = now > due;
-      if (overdue) {
-        items.push({ label: 'Méningo', status: 'overdue', text: fmtDate(d) + ' – Rappel dépassé (dû ' + fmtDate(due) + ')', cls: 'red' });
-      } else {
-        items.push({ label: 'Méningo', status: 'ok', text: fmtDate(d) + ' – Prochain rappel : ' + fmtDate(due), cls: 'green' });
-      }
-    }
+  // Méningo
+  (function(){var d=parseDate(f['Méningo ACYW135'])||parseDate(f['Méningo ACYW135 ']),rule=rules['Méningo ACYW135'],delayY=rule?rule.delay:5;
+    if(!d){items.push({label:'Méningo',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
+    var due=addYears(d,delayY),ov=now>due;
+    items.push({label:'Méningo',text:fmtDate(d)+(ov?' – Dépassé ('+fmtDate(due)+')':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
   })();
 
-  // ROR – presence
-  (function() {
-    var val = String(f['ROR'] || '').toLowerCase();
-    if (val === 'ok') {
-      items.push({ label: 'ROR', status: 'ok', text: 'OK', cls: 'green' });
-    } else if (val && val !== '' && val !== '0' && val !== 'false') {
-      items.push({ label: 'ROR', status: 'ok', text: String(f['ROR']), cls: 'green' });
-    } else {
-      items.push({ label: 'ROR', status: 'missing', text: 'MANQUANT', cls: 'red' });
-    }
+  // ROR
+  (function(){var v=String(f['ROR']||'').toLowerCase();
+    items.push({label:'ROR',text:v==='ok'?'OK':'MANQUANT',cls:v==='ok'?'green':'red',due:null,agent:agent.name});
   })();
 
-  // Grippe – info only
-  (function() {
-    var val = String(f['Grippe'] || '').toLowerCase();
-    if (val === 'ok') {
-      items.push({ label: 'Grippe', status: 'ok', text: 'OK', cls: 'green' });
-    } else if (val && val !== '' && val !== '0' && val !== 'false') {
-      items.push({ label: 'Grippe', status: 'ok', text: String(f['Grippe']), cls: 'grey' });
-    } else {
-      items.push({ label: 'Grippe', status: 'info', text: 'Non renseigné', cls: 'grey' });
-    }
+  // Grippe – rappel annuel (date ou ok)
+  (function(){var v=String(f['Grippe']||'').toLowerCase(),d=parseDate(f['Grippe']),rule=rules['Grippe'],delayY=rule?rule.delay:1;
+    if(v==='ok'){items.push({label:'Grippe',text:'OK',cls:'green',due:null,agent:agent.name});return;}
+    if(d){var due=addYears(d,delayY),ov=now>due;
+      items.push({label:'Grippe',text:fmtDate(d)+(ov?' – Rappel dépassé':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
+    }else items.push({label:'Grippe',text:'MANQUANT',cls:'red',due:null,agent:agent.name});
+  })();
+
+  // BCG
+  (function(){var v=String(f['BCG']||'').toLowerCase();
+    items.push({label:'BCG',text:v==='ok'?'OK':'MANQUANT',cls:v==='ok'?'green':'red',due:null,agent:agent.name});
+  })();
+
+  // Groupe sanguin
+  (function(){var v=String(f['Groupe sanguin']||'').trim();
+    if(v&&v!=='0'&&v.toLowerCase()!=='false')items.push({label:'Groupe sanguin',text:v,cls:'green',due:null,agent:agent.name});
+    else items.push({label:'Groupe sanguin',text:'MANQUANT',cls:'red',due:null,agent:agent.name});
+  })();
+
+  // VMA – rouge dès 11 mois
+  (function(){var d=parseDate(f['VMA']),rule=rules['VMA'],delayY=rule?rule.delay:1;
+    if(!d){items.push({label:'VMA',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
+    var due=addYears(d,delayY),warn=addMonths(d,11);
+    if(now>due) items.push({label:'VMA',text:fmtDate(d)+' – EXPIRÉE',cls:'red',due:due,agent:agent.name});
+    else if(now>warn) items.push({label:'VMA',text:fmtDate(d)+' – Expire bientôt ! ('+fmtDate(due)+')',cls:'red',due:due,agent:agent.name});
+    else items.push({label:'VMA',text:fmtDate(d)+' – Valide jusqu\'au '+fmtDate(due),cls:'green',due:due,agent:agent.name});
+  })();
+
+  // ECG
+  (function(){var d=parseDate(f['ECG de la VMA']);
+    if(!d)items.push({label:'ECG',text:'Non renseigné',cls:'grey',due:null,agent:agent.name});
+    else items.push({label:'ECG',text:fmtDate(d),cls:'green',due:null,agent:agent.name});
+  })();
+
+  // Pano dentaire – rappel 10 ans
+  (function(){var d=parseDate(f['Pano dentaire']),rule=rules['Pano dentaire'],delayY=rule?rule.delay:10;
+    if(!d){items.push({label:'Pano dentaire',text:'MANQUANT',cls:'red',due:null,agent:agent.name});return;}
+    var due=addYears(d,delayY),ov=now>due;
+    items.push({label:'Pano dentaire',text:fmtDate(d)+(ov?' – Dépassé ('+fmtDate(due)+')':' – Prochain : '+fmtDate(due)),cls:ov?'red':'green',due:due,agent:agent.name});
+  })();
+
+  // COVID
+  (function(){var v=String(f['COVID (3 doses)']||'').toLowerCase();
+    items.push({label:'COVID',text:v==='ok'?'OK':'MANQUANT',cls:v==='ok'?'green':'red',due:null,agent:agent.name});
   })();
 
   return items;
 }
 
 /* ═══ RENDER AGENTS ═══ */
-function renderAgents() {
-  var grid = document.getElementById('agentGrid');
-  grid.innerHTML = '';
-  allCards = [];
-
-  DATA.agents.forEach(function(agent) {
-    var items = analyzeAgent(agent);
-    var missing = items.filter(function(i){ return i.cls === 'red'; }).length;
-    var upcoming = items.filter(function(i){ return i.cls === 'orange'; }).length;
-    var badgeCls = missing > 0 ? 'crit' : (upcoming > 0 ? 'warn' : 'ok');
-    var badgeTxt = missing > 0 ? missing + ' manquant' + (missing > 1 ? 's' : '') : (upcoming > 0 ? upcoming + ' à prévoir' : '✓ Complet');
-
-    var card = document.createElement('div');
-    card.className = 'agent-card';
-    card.dataset.name = agent.name.toLowerCase();
-
-    var html = '<div class="agent-header"><span>' + escHtml(agent.name) + '</span><span class="badge ' + badgeCls + '">' + badgeTxt + '</span></div>';
-    html += '<div class="agent-body">';
-
-    items.forEach(function(it) {
-      var rowCls = it.cls === 'red' ? 'missing' : (it.cls === 'orange' ? 'upcoming' : 'ok');
-      html += '<div class="item-row ' + rowCls + '"><div class="dot ' + it.cls + '"></div><span class="label">' + escHtml(it.label) + '</span><span class="value">' + escHtml(it.text) + '</span></div>';
+function renderAgents(){
+  var grid=document.getElementById('agentGrid');
+  grid.innerHTML='';allCards=[];allAgentData=[];
+  DATA.agents.forEach(function(agent){
+    var items=analyzeAgent(agent);
+    allAgentData.push({agent:agent,items:items});
+    var missing=items.filter(function(i){return i.cls==='red';}).length;
+    var upcoming=items.filter(function(i){return i.cls==='orange';}).length;
+    var badgeCls=missing>0?'crit':(upcoming>0?'warn':'ok');
+    var badgeTxt=missing>0?missing+' manquant'+(missing>1?'s':''):(upcoming>0?upcoming+' à prévoir':'✓ Complet');
+    var card=document.createElement('div');
+    card.className='agent-card';card.dataset.name=agent.name.toLowerCase();card.dataset.missing=missing;
+    var html='<div class="agent-header"><span>'+escHtml(agent.name)+'</span><span class="badge '+badgeCls+'">'+badgeTxt+'</span></div><div class="agent-body">';
+    items.forEach(function(it){
+      var rowCls=it.cls==='red'?'missing':(it.cls==='orange'?'upcoming':'ok');
+      html+='<div class="item-row '+rowCls+'"><div class="dot '+it.cls+'"></div><span class="label">'+escHtml(it.label)+'</span><span class="value">'+escHtml(it.text)+'</span></div>';
     });
-
-    // Comments section
-    var agComments = (DATA.comments && DATA.comments[agent.name]) || [];
-    var agId = 'cmt_' + agent.col;
-    html += '<div class="comments-section">';
-    html += '<button class="comments-toggle" onclick="toggleComments(\'' + agId + '\')">💬 Commentaires (' + agComments.length + ') ▾</button>';
-    html += '<div id="' + agId + '" style="display:none;">';
-    html += '<div class="comments-list" id="list_' + agId + '">';
-    agComments.forEach(function(c) {
-      html += renderComment(c);
-    });
-    html += '</div>';
-    html += '<div class="add-comment"><input type="text" id="input_' + agId + '" placeholder="Ajouter un commentaire…" onkeydown="if(event.key===\'Enter\')submitComment(\'' + escAttr(agent.name) + '\',\'' + agId + '\')"><button onclick="submitComment(\'' + escAttr(agent.name) + '\',\'' + agId + '\')">Envoyer</button></div>';
-    html += '</div></div>';
-
-    html += '</div>';
-    card.innerHTML = html;
-    grid.appendChild(card);
-    allCards.push(card);
+    var agComments=(DATA.comments&&DATA.comments[agent.name])||[],agId='cmt_'+agent.col;
+    html+='<div class="comments-section"><button class="comments-toggle" onclick="toggleComments(\''+agId+'\')">💬 Commentaires ('+agComments.length+') ▾</button>';
+    html+='<div id="'+agId+'" style="display:none;"><div class="comments-list">';
+    agComments.forEach(function(c){html+=renderComment(c);});
+    html+='</div><div class="add-comment"><input type="text" id="input_'+agId+'" placeholder="Ajouter un commentaire…" onkeydown="if(event.key===\'Enter\')submitComment(\''+escAttr(agent.name)+'\',\''+agId+'\')"><button onclick="submitComment(\''+escAttr(agent.name)+'\',\''+agId+'\')">Envoyer</button></div></div></div>';
+    html+='</div>';
+    card.innerHTML=html;grid.appendChild(card);allCards.push(card);
   });
+  document.getElementById('loadingAgents').style.display='none';grid.style.display='';filterAgents();
+}
 
-  document.getElementById('loadingAgents').style.display = 'none';
-  grid.style.display = '';
+function renderComment(c){
+  return '<div class="comment-item '+(c.validated?'validated':'')+'"><span class="c-text">'+escHtml(c.text)+'</span><span class="c-date">'+escHtml(c.date)+'</span><span class="c-actions">'+(c.validated?'':'<button class="c-btn validate" onclick="doValidate('+c.row+')">✓</button>')+'<button class="c-btn delete" onclick="doDelete('+c.row+')">✕</button></span></div>';
+}
+
+/* ═══ CALENDAR ═══ */
+function renderCalendar(){
+  var events=[],now=new Date();
+  allAgentData.forEach(function(ad){
+    ad.items.forEach(function(it){
+      if(it.cls==='red'&&!it.due) events.push({date:null,agent:it.agent,label:it.label,text:it.text,type:'missing'});
+      else if(it.cls==='red'&&it.due) events.push({date:it.due,agent:it.agent,label:it.label,text:it.text,type:'overdue'});
+      else if(it.cls==='orange'&&it.due) events.push({date:it.due,agent:it.agent,label:it.label,text:it.text,type:'upcoming'});
+    });
+  });
+  // future green dues
+  allAgentData.forEach(function(ad){
+    ad.items.forEach(function(it){
+      if(it.cls==='green'&&it.due&&it.due>now) events.push({date:it.due,agent:it.agent,label:it.label,text:'Rappel '+it.label,type:'future'});
+    });
+  });
+  var missing=events.filter(function(e){return!e.date;});
+  var dated=events.filter(function(e){return e.date;});
+  dated.sort(function(a,b){return a.date-b.date;});
+  var html='';
+  if(missing.length){
+    html+='<div class="cal-section-title">🔴 Actions immédiates ('+missing.length+')</div><div class="cal-list">';
+    missing.forEach(function(e){html+='<div class="cal-item missing"><span class="cal-date">Immédiat</span><span class="cal-agent">'+escHtml(e.agent)+'</span><span class="cal-what">'+escHtml(e.label)+' – '+escHtml(e.text)+'</span></div>';});
+    html+='</div>';
+  }
+  var overdue=dated.filter(function(e){return e.type==='overdue';}),upcoming=dated.filter(function(e){return e.type==='upcoming';}),future=dated.filter(function(e){return e.type==='future';});
+  if(overdue.length){
+    html+='<div class="cal-section-title">⚠️ En retard ('+overdue.length+')</div><div class="cal-list">';
+    overdue.forEach(function(e){html+='<div class="cal-item overdue"><span class="cal-date">'+fmtDate(e.date)+'</span><span class="cal-agent">'+escHtml(e.agent)+'</span><span class="cal-what">'+escHtml(e.label)+'</span></div>';});
+    html+='</div>';
+  }
+  if(upcoming.length){
+    html+='<div class="cal-section-title">🟠 À prévoir ('+upcoming.length+')</div><div class="cal-list">';
+    upcoming.forEach(function(e){html+='<div class="cal-item upcoming"><span class="cal-date">'+fmtDate(e.date)+'</span><span class="cal-agent">'+escHtml(e.agent)+'</span><span class="cal-what">'+escHtml(e.label)+'</span></div>';});
+    html+='</div>';
+  }
+  if(future.length){
+    html+='<div class="cal-section-title">📅 Prochains rappels ('+future.length+')</div><div class="cal-list">';
+    future.forEach(function(e){html+='<div class="cal-item"><span class="cal-date">'+fmtDate(e.date)+'</span><span class="cal-agent">'+escHtml(e.agent)+'</span><span class="cal-what">'+escHtml(e.label)+'</span></div>';});
+    html+='</div>';
+  }
+  if(!html)html='<p style="color:#666;text-align:center;padding:40px;">Aucune action à mener 🎉</p>';
+  document.getElementById('calendarContent').innerHTML=html;
+}
+
+/* ═══ COMMENTS ═══ */
+function toggleComments(id){var el=document.getElementById(id);el.style.display=el.style.display==='none'?'block':'none';}
+function submitComment(name,agId){var input=document.getElementById('input_'+agId),text=input.value.trim();if(!text)return;input.value='';input.disabled=true;google.script.run.withSuccessHandler(function(){reload();}).withFailureHandler(function(e){alert('Erreur: '+e.message);input.disabled=false;}).addComment(name,text);}
+function doValidate(row){google.script.run.withSuccessHandler(function(){reload();}).validateComment(row);}
+function doDelete(row){if(!confirm('Supprimer ?'))return;google.script.run.withSuccessHandler(function(){reload();}).deleteComment(row);}
+function reload(){google.script.run.withSuccessHandler(onData).getData();}
+
+/* ═══ FILTER ═══ */
+function filterAgents(){
+  var q=document.getElementById('searchInput').value.toLowerCase().trim();
+  var retardOnly=document.getElementById('chkRetardOnly').checked;
+  allCards.forEach(function(card){
+    var nameOk=card.dataset.name.indexOf(q)>=0;
+    var retardOk=!retardOnly||parseInt(card.dataset.missing)>0;
+    card.style.display=(nameOk&&retardOk)?'':'none';
+  });
   updateCount();
 }
+function updateCount(){var vis=allCards.filter(function(c){return c.style.display!=='none';}).length;document.getElementById('agentCount').textContent=vis+'/'+allCards.length+' agents';}
 
-function renderComment(c) {
-  return '<div class="comment-item ' + (c.validated ? 'validated' : '') + '">' +
-    '<span class="c-text">' + escHtml(c.text) + '</span>' +
-    '<span class="c-date">' + escHtml(c.date) + '</span>' +
-    '<span class="c-actions">' +
-    (c.validated ? '' : '<button class="c-btn validate" title="Valider" onclick="doValidate(' + c.row + ')">✓</button>') +
-    '<button class="c-btn delete" title="Supprimer" onclick="doDelete(' + c.row + ')">✕</button>' +
-    '</span></div>';
-}
-
-/* ═══ COMMENTS ACTIONS ═══ */
-function toggleComments(id) {
-  var el = document.getElementById(id);
-  el.style.display = el.style.display === 'none' ? 'block' : 'none';
-}
-
-function submitComment(agentName, agId) {
-  var input = document.getElementById('input_' + agId);
-  var text = input.value.trim();
-  if (!text) return;
-  input.value = '';
-  input.disabled = true;
-  google.script.run.withSuccessHandler(function(){ reload(); }).withFailureHandler(function(e){ alert('Erreur: '+e.message); input.disabled=false; }).addComment(agentName, text);
-}
-
-function doValidate(row) {
-  google.script.run.withSuccessHandler(function(){ reload(); }).withFailureHandler(function(e){ alert('Erreur: '+e.message); }).validateComment(row);
-}
-
-function doDelete(row) {
-  if (!confirm('Supprimer ce commentaire ?')) return;
-  google.script.run.withSuccessHandler(function(){ reload(); }).withFailureHandler(function(e){ alert('Erreur: '+e.message); }).deleteComment(row);
-}
-
-function reload() {
-  google.script.run.withSuccessHandler(onData).getData();
-}
-
-/* ═══ SEARCH ═══ */
-function filterAgents() {
-  var q = document.getElementById('searchInput').value.toLowerCase().trim();
-  allCards.forEach(function(card) {
-    card.style.display = card.dataset.name.indexOf(q) >= 0 ? '' : 'none';
-  });
-  updateCount();
-}
-
-function updateCount() {
-  var visible = allCards.filter(function(c){ return c.style.display !== 'none'; }).length;
-  document.getElementById('agentCount').textContent = visible + '/' + allCards.length + ' agents';
-}
-
-/* ═══ RENDER RULES ═══ */
-function renderRules() {
-  var tbody = document.getElementById('rulesBody');
-  tbody.innerHTML = '';
-  DATA.rules.forEach(function(r) {
-    var typeLabel = { 'age': '🎂 Lié à l\'âge', 'presence': '✅ Présence/Absence', 'date': '📅 Date', 'rappel': '🔄 Rappel' }[r.type] || r.type;
-    tbody.innerHTML += '<tr><td><b>' + escHtml(r.name) + '</b></td><td>' + typeLabel + '</td><td>' + (r.delay > 0 ? r.delay + ' ans' : '–') + '</td><td>' + escHtml(r.desc) + '</td></tr>';
+/* ═══ RULES (editable) ═══ */
+function renderRules(){
+  var tbody=document.getElementById('rulesBody');tbody.innerHTML='';
+  DATA.rules.forEach(function(r,i){
+    tbody.innerHTML+='<tr><td><input type="text" value="'+escAttr(r.name)+'" data-i="'+i+'" data-f="name"></td><td><select data-i="'+i+'" data-f="type"><option value="age"'+(r.type==='age'?' selected':'')+'>🎂 Âge</option><option value="presence"'+(r.type==='presence'?' selected':'')+'>✅ Présence</option><option value="date"'+(r.type==='date'?' selected':'')+'>📅 Date</option><option value="rappel"'+(r.type==='rappel'?' selected':'')+'>🔄 Rappel</option></select></td><td><input type="number" value="'+r.delay+'" min="0" data-i="'+i+'" data-f="delay"></td><td><input type="text" value="'+escAttr(r.desc)+'" data-i="'+i+'" data-f="desc"></td></tr>';
   });
 }
 
-/* ═══ UTILS ═══ */
-function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-function escAttr(s) { return s.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+function saveRules(){
+  var inputs=document.querySelectorAll('#rulesBody input, #rulesBody select');
+  var arr=DATA.rules.map(function(r){return{name:r.name,type:r.type,delay:r.delay,desc:r.desc};});
+  inputs.forEach(function(el){var i=parseInt(el.dataset.i),f=el.dataset.f;if(f==='delay')arr[i][f]=parseFloat(el.value)||0;else arr[i][f]=el.value;});
+  google.script.run.withSuccessHandler(function(){DATA.rules=arr;renderAgents();renderCalendar();alert('Règles enregistrées ✓');}).withFailureHandler(function(e){alert('Erreur: '+e.message);}).saveRules(arr);
+}
+
+function escHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 </script>
 </body>
 </html>

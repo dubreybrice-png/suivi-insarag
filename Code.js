@@ -32,13 +32,13 @@ function ensureRulesSheet() {
     ['Typhoïde',      'rappel',   3,  'Rappel tous les 3 ans'],
     ['Méningo ACYW135','rappel',  5,  'Rappel tous les 5 ans'],
     ['ROR',           'presence', 0,  'Doit être OK'],
-    ['Grippe',        'presence', 0,  'Recommandé – info seulement'],
-    ['BCG',           'presence', 0,  'Info seulement'],
+    ['Grippe',        'rappel',   1,  'Rappel tous les ans'],
+    ['BCG',           'presence', 0,  'Doit être OK ou manque'],
     ['Groupe sanguin','presence', 0,  'Doit être renseigné'],
-    ['VMA',           'date',     0,  'Date de la VMA'],
+    ['VMA',           'rappel',   1,  'Valide 1 an – alerte à 11 mois'],
     ['ECG de la VMA', 'date',     0,  'Date ECG'],
-    ['Pano dentaire', 'date',     0,  'Date panoramique dentaire'],
-    ['COVID (3 doses)','presence',0,  'Doit être OK']
+    ['Pano dentaire', 'rappel',  10,  'Rappel tous les 10 ans'],
+    ['COVID (3 doses)','presence',0,  'Doit être OK ou manque']
   ];
   sh.getRange(2, 1, data.length, 4).setValues(data);
   sh.autoResizeColumns(1, 4);
@@ -111,6 +111,19 @@ function getData() {
   }
 
   return { agents: agents, rules: rules, comments: comments };
+}
+
+/* ── sauvegarde règles ── */
+function saveRules(rulesArray) {
+  var sh = ensureRulesSheet();
+  // Clear data rows
+  var last = sh.getLastRow();
+  if (last > 1) sh.getRange(2, 1, last - 1, 4).clearContent();
+  if (rulesArray.length > 0) {
+    var rows = rulesArray.map(function(r) { return [r.name, r.type, r.delay, r.desc]; });
+    sh.getRange(2, 1, rows.length, 4).setValues(rows);
+  }
+  return true;
 }
 
 /* ── commentaires ── */
